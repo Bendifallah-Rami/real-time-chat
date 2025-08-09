@@ -1,0 +1,20 @@
+{
+  "name": "chat-websocket-backend",
+  "version": "1.0.0",
+  "description": "Simple WebSocket chat server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "ws": "^8.14.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["websocket", "chat", "real-time"],
+  "author": "",
+  "license": "ISC"
+}

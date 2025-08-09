@@ -1,0 +1,17 @@
+{
+  "name": "websocket-chat-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for WebSocket chat application",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 3000",
+    "serve": "npx http-server -p 3000 -c-1",
+    "build": "echo 'No build process needed for static frontend'"
+  },
+  "keywords": ["websocket", "chat", "frontend", "html", "css", "javascript"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

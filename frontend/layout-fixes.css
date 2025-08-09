@@ -1,0 +1,52 @@
+/* Additional CSS fixes for layout stability */
+
+/* Ensure stable positioning for message input */
+.message-input-container {
+    position: sticky !important;
+    bottom: 0;
+    z-index: 100;
+}
+
+/* Prevent any margin collapse issues */
+.messages-container > * {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.messages-container > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Ensure proper box sizing for all elements */
+*, *::before, *::after {
+    box-sizing: border-box !important;
+}
+
+/* Prevent layout shift during message loading */
+.message-bubble {
+    contain: layout style;
+}
+
+/* Optimize scrolling performance */
+.messages-container {
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+}
+
+/* Fix any potential flex issues on mobile */
+@media (max-width: 768px) {
+    .chat-interface {
+        min-height: 0;
+        height: 100%;
+    }
+    
+    .messages-container {
+        min-height: 0;
+    }
+    
+    .message-input-container {
+        flex-shrink: 0;
+        position: sticky;
+        bottom: 0;
+    }
+}

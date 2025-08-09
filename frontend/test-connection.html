@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Connection Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #f0f0f0; 
+        }
+        .test-container { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+        }
+        .status { 
+            padding: 10px; 
+            border-radius: 4px; 
+            margin: 10px 0; 
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        button { 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin: 5px; 
+        }
+        button:hover { background: #0056b3; }
+        #log { 
+            background: #f8f9fa; 
+            border: 1px solid #dee2e6; 
+            padding: 10px; 
+            height: 200px; 
+            overflow-y: auto; 
+            font-family: monospace; 
+            font-size: 12px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔧 WebSocket Connection Test</h1>
+        
+        <div class="status info">
+            <strong>Server URL:</strong> <span id="serverUrl">ws://localhost:8080</span>
+        </div>
+        
+        <div class="status" id="connectionStatus">
+            <strong>Status:</strong> Not connected
+        </div>
+        
+        <button onclick="testConnection()">🔌 Test Connection</button>
+        <button onclick="sendTestMessage()">📤 Send Test Message</button>
+        <button onclick="clearLog()">🗑️ Clear Log</button>
+        
+        <h3>📝 Connection Log:</h3>
+        <div id="log"></div>
+    </div>
+
+    <script>
+        let ws = null;
+        const serverUrl = 'ws://localhost:8080';
+        
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${timestamp}] ${message}<br>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        function updateStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('connectionStatus');
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = `<strong>Status:</strong> ${message}`;
+        }
+        
+        function testConnection() {
+            log('🚀 Attempting to connect to WebSocket server...');
+            updateStatus('Connecting...', 'info');
+            
+            try {
+                ws = new WebSocket(serverUrl);
+                
+                ws.onopen = function(event) {
+                    log('✅ Connected successfully!');
+                    updateStatus('Connected', 'success');
+                };
+                
+                ws.onmessage = function(event) {
+                    log(`📨 Received: ${event.data}`);
+                };
+                
+                ws.onclose = function(event) {
+                    log(`🔌 Connection closed. Code: ${event.code}, Reason: ${event.reason}`);
+                    updateStatus('Disconnected', 'error');
+                };
+                
+                ws.onerror = function(error) {
+                    log(`❌ WebSocket error: ${error}`);
+                    updateStatus('Connection Error', 'error');
+                };
+                
+            } catch (error) {
+                log(`❌ Failed to create WebSocket: ${error}`);
+                updateStatus('Failed to connect', 'error');
+            }
+        }
+        
+        function sendTestMessage() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const testMessage = {
+                    type: 'chat',
+                    username: 'TestUser',
+                    message: 'Hello from connection test!'
+                };
+                ws.send(JSON.stringify(testMessage));
+                log(`📤 Sent test message: ${JSON.stringify(testMessage)}`);
+            } else {
+                log('❌ Cannot send message - not connected');
+            }
+        }
+        
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+        
+        // Auto-test connection on page load
+        window.onload = function() {
+            log('🔧 WebSocket Connection Tester loaded');
+            document.getElementById('serverUrl').textContent = serverUrl;
+        };
+    </script>
+</body>
+</html>

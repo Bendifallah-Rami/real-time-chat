@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: websocket-chat-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        fromService:
+          type: web
+          name: websocket-chat-backend
+          property: port

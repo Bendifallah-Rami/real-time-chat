@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💬 WebSocket Chat App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="layout-fixes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Header -->
+        <div class="chat-header">
+            <div class="header-content">
+                <div class="chat-title">
+                    <i class="fas fa-comments"></i>
+                    <h1>WebSocket Chat</h1>
+                </div>
+                <div class="connection-status">
+                    <div class="status-indicator" id="statusIndicator">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <span id="connectionStatus">Connecting...</span>
+                    <div class="user-count">
+                        <i class="fas fa-users"></i>
+                        <span id="userCount">0</span> online
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Username Setup (shown initially) -->
+        <div class="username-setup" id="usernameSetup">
+            <div class="setup-content">
+                <div class="setup-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h2>Welcome to the Chat!</h2>
+                <p>Enter your username to start chatting with everyone</p>
+                <div class="username-form">
+                    <input type="text" id="usernameInput" placeholder="Enter your username..." maxlength="20">
+                    <button id="joinChatBtn" class="join-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        Join Chat
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Interface (hidden initially) -->
+        <div class="chat-interface" id="chatInterface" style="display: none;">
+            <!-- Messages Container -->
+            <div class="messages-container" id="messagesContainer">
+                <div class="welcome-message">
+                    <i class="fas fa-rocket"></i>
+                    <p>Welcome to the chat! Start a conversation...</p>
+                </div>
+            </div>
+
+            <!-- Message Input -->
+            <div class="message-input-container">
+                <div class="input-wrapper">
+                    <input type="text" id="messageInput" placeholder="Type your message here..." maxlength="500">
+                    <button id="sendBtn" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-info">
+                    <span class="typing-indicator" id="typingIndicator"></span>
+                    <span class="char-count" id="charCount">0/500</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connection Error Modal -->
+        <div class="modal" id="errorModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Connection Error</h3>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage">Failed to connect to the chat server.</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="retryBtn" class="retry-btn">
+                        <i class="fas fa-redo"></i>
+                        Retry Connection
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
