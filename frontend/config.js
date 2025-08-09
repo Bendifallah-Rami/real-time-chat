@@ -6,7 +6,7 @@ const config = {
     },
     production: {
         // Replace this with your actual deployed backend URL
-        wsUrl: 'wss://real-time-chat-z2ac.onrender.com/',
+        wsUrl: 'https://real-time-chat-z2ac.onrender.com',
         apiUrl: 'https://real-time-chat-z2ac.onrender.com'
     }
 };
